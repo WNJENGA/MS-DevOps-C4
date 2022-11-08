@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <p>This is a paragraph</p>
+    <p>This is a second paragraph</p>
+    <p>This is a third paragraph</p>
+    <p>This is a fourth paragraph</p>
+
+    <button id="submit">SUBMIT</button>
+    <button class="no-submit">NO SUBMIT</button>
+
+
+    <!-- Link to JQUERY CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <!-- Javascript -->
+    <script>
+        jQuery(document).ready(function () {
+            // # ~ getElementById
+            jQuery('button#submit').click(function () {
+                jQuery(this).hide();
+            });
+            // . ~ getElementByClassName
+            jQuery('button.no-submit').click(function () {
+                jQuery(this).hide();
+            });
+            jQuery('p').click(function () {
+                jQuery(this).hide();
+            });
+            // Use one element to reference others
+            jQuery('button#submit').dblclick(function () {
+                // Reference first element in a list of similarly tagged elements
+                jQuery('p:first').css('font-size', 'large');
+            });
+            // Dynamic styling
+            jQuery('button.no-submit').mouseenter(function () {
+                // this keyword represents the current element defined above
+                jQuery(this).slideUp('slow',function() {
+                    console.log('DONE ANIMATING')
+                });
+            });
+        });
+    </script>
+    <!-- <script src="backend.js"></script> -->
+
+</body>
+
+</html>

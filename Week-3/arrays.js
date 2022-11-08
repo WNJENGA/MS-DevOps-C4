@@ -5,15 +5,18 @@ const fruits = ['Apples', 'Bananas', 'Kiwis', 'Watermelon'];
 // fruits.forEach((val) => { console.log('Today I am having', val) });
 
 // Loop 2
-for (let index = 0; index < fruits.length; index++) {
-    const element = fruits[index];
-    console.log(element, 'is index', index);
-}
+// for (let index = 0; index < fruits.length; index++) {
+//     const element = fruits[index];
+//     console.log(element, 'is index', index);
+// }
 
 // Loop 3
-for (const iterator of fruits) {
-    console.log(iterator, 'is index', fruits.indexOf(iterator))
-}
+// for (const iterator of fruits) {
+//     console.log(iterator, 'is index', fruits.indexOf(iterator))
+// }
+
+// Loop 4
+fruits.map((value, index) => { console.log(value, 'is index', index) });
 
 // Objects
 // Loop 4
