@@ -2,7 +2,8 @@
 <html>
 
 <head>
-
+    <!-- Link to CSS -->
+    <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -13,7 +14,15 @@
 
     <button id="submit">SUBMIT</button>
     <button class="no-submit">NO SUBMIT</button>
+    <button class="listModifier">LIST MODIFIER</button>
 
+    <br>
+    <br>
+    <br>
+
+    <label>Fruits I enjoy</label>
+    <ul>
+    </ul>
 
     <!-- Link to JQUERY CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -22,11 +31,30 @@
         jQuery(document).ready(function () {
             // # ~ getElementById
             jQuery('button#submit').click(function () {
-                jQuery(this).hide();
+                // jQuery(this).hide();
+
+                // Dynamic styling
+                // Link via CSS file
+                jQuery('body').addClass('test-color');
+
+                // Manual Link
+                // jQuery('body').css('background-color','red');
+                // jQuery('body').css('padding-left', '10px');
+                // jQuery('body').css('padding-top', '10px');
             });
             // . ~ getElementByClassName
             jQuery('button.no-submit').click(function () {
-                jQuery(this).hide();
+                jQuery('body').removeClass('test-color');
+                jQuery('ul').remove();
+            });
+            jQuery('button.listModifier').click(() => {
+                // Append adds elements
+                jQuery('ul').append('<li>Apples</li>')
+                jQuery('ul').append('<li>Mangoes</li>')
+                jQuery('ul').append('<li>Bananas</li>')
+                jQuery('body').append('<p>This is a new appended paragraph at the bottom of the file<p/>')
+
+                jQuery('body').prepend('<p>This is a new appended paragraph at the top of the file<p/>')
             });
             jQuery('p').click(function () {
                 jQuery(this).hide();
@@ -39,7 +67,7 @@
             // Dynamic styling
             jQuery('button.no-submit').mouseenter(function () {
                 // this keyword represents the current element defined above
-                jQuery(this).slideUp('slow',function() {
+                jQuery(this).slideUp('slow', function () {
                     console.log('DONE ANIMATING')
                 });
             });
