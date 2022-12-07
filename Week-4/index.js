@@ -10,7 +10,7 @@ var http = require('http');
 const url = require('url');
 const { StringDecoder } = require('string_decoder');
 
-const hostname = '127.0.0.1'
+const hostname = '127.0.0.1';
 const port = 8080;
 
 // Handlers
