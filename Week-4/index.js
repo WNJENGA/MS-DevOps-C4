@@ -20,6 +20,8 @@ handlers.homeHandler = (data, callback) => {
     callback(200, data);
 };
 
+// TODO: Return an actual HTML file
+// TODO: Deploy our application -> Heroku
 handlers.notFound = (data, callback) => {
     callback(404, 'The data you requested in unavailable');
 };
