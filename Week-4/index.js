@@ -8,9 +8,31 @@
 // Imports
 var http = require('http');
 const url = require('url');
+const { StringDecoder } = require('string_decoder');
 
 const hostname = '127.0.0.1'
 const port = 8080;
+
+// Handlers
+const handlers = {};
+
+handlers.homeHandler = (data, callback) => {
+    callback(200, data);
+};
+
+handlers.notFound = (data, callback) => {
+    callback(404, 'The data you requested in unavailable');
+};
+
+handlers.login = (data, callback) => {
+    callback(400, { message: 'This will be implemented soon' });
+};
+
+// Router
+const router = {
+    home: handlers.homeHandler,
+    login: handlers.login,
+}
 
 // Create the server
 const server = http.createServer(function (req, res) {
@@ -26,23 +48,49 @@ const server = http.createServer(function (req, res) {
     // Get the url and parse the url
     const parsedUrl = url.parse(reqUrl);
 
+    // Path
+    const path = parsedUrl.pathname;
+    const trimmedPath = path.replace(/^\/+|\/+$/g, '');
+
     // Query Parameters
     const parameters = parsedUrl.query;
 
     // Body / Payload
+    const decoder = new StringDecoder('utf-8')
     let data = '';
     req.on('data', (chunk) => {
-        data = data + chunk;
+        data += decoder.write(chunk);
     });
     req.on('end', () => {
-        // console.log('Url', url);
-        console.log('Method', method);
-        console.log('Parameters', parameters);
-        console.log('Headers', headers);
-        console.log('Body', data)
+        data += decoder.end();
 
-        res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end('Hello World');
+        // Handle routing -> Checking if trimmedPath exists as a key in the router object
+        const routeHandler = typeof (router[trimmedPath]) !== 'undefined' ? router[trimmedPath] : handlers.notFound;
+
+        // if (typeof(routeHandler) !== 'undefined') {
+        //     routeHandler[trimmedPath];
+        // } else {
+        //     routeHandler = handlers.notFound;
+        // }
+
+        const payload = {
+            method: method,
+            headers: headers,
+            body: data,
+            path: trimmedPath,
+            query: parameters,
+        };
+
+        routeHandler(payload, (statusCode, payloadData) => {
+            const payloadString = JSON.stringify(payloadData);
+
+            res.setHeader('Content-Type', 'application/json');
+            res.writeHead(statusCode);
+            res.end(payloadString);
+        });
+
+
+        console.log('Payload', payload);
     });
 });
 
