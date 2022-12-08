@@ -11,7 +11,6 @@ const url = require('url');
 const { StringDecoder } = require('string_decoder');
 var fs = require('fs');
 
-const hostname = '0.0.0.0';
 const port = 80;
 
 // Handlers
@@ -100,6 +99,6 @@ const server = http.createServer(function (req, res) {
     });
 });
 
-server.listen(port, hostname, () => {
-    console.log(`There is a server running on http://${hostname}:${port}`);
+server.listen(port, () => {
+    console.log(`There is a server running on PORT ${port}`);
 });
