@@ -12,7 +12,7 @@ const { StringDecoder } = require('string_decoder');
 var fs = require('fs');
 
 const hostname = '127.0.0.1';
-const port = 8080;
+const port = 80;
 
 // Handlers
 const handlers = {};
