@@ -9,6 +9,7 @@
 var http = require('http');
 const url = require('url');
 const { StringDecoder } = require('string_decoder');
+var fs = require('fs');
 
 const hostname = '127.0.0.1';
 const port = 8080;
@@ -17,13 +18,14 @@ const port = 8080;
 const handlers = {};
 
 handlers.homeHandler = (data, callback) => {
-    callback(200, data);
+    const fileData = fs.readFileSync('public/home.html');
+    callback(200, 'text/html', fileData.toString());
 };
 
-// TODO: Return an actual HTML file
 // TODO: Deploy our application -> Heroku
 handlers.notFound = (data, callback) => {
-    callback(404, 'The data you requested in unavailable');
+    const fileData = fs.readFileSync('public/index.html');
+    callback(404, 'text/html', fileData.toString());
 };
 
 handlers.login = (data, callback) => {
@@ -83,12 +85,14 @@ const server = http.createServer(function (req, res) {
             query: parameters,
         };
 
-        routeHandler(payload, (statusCode, payloadData) => {
-            const payloadString = JSON.stringify(payloadData);
-
-            res.setHeader('Content-Type', 'application/json');
+        routeHandler(payload, (statusCode, contentType = 'application/json', payloadData) => {
+            res.setHeader('Content-Type', contentType);
             res.writeHead(statusCode);
-            res.end(payloadString);
+            if (contentType === 'text/html') {
+                res.end(payloadData);
+            } else {
+                res.end(JSON.stringify(payloadData))
+            }
         });
 
 
