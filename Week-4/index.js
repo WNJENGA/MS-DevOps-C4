@@ -11,7 +11,7 @@ const url = require('url');
 const { StringDecoder } = require('string_decoder');
 var fs = require('fs');
 
-const port = 80;
+const port = process.env.PORT || 3000;
 
 // Handlers
 const handlers = {};
