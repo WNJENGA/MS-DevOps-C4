@@ -17,13 +17,13 @@ const port = process.env.PORT || 3000;
 const handlers = {};
 
 handlers.homeHandler = (data, callback) => {
-    const fileData = fs.readFileSync('public/home.html');
+    const fileData = fs.readFileSync('Week-4/public/home.html');
     callback(200, 'text/html', fileData.toString());
 };
 
 // TODO: Deploy our application -> Heroku
 handlers.notFound = (data, callback) => {
-    const fileData = fs.readFileSync('public/index.html');
+    const fileData = fs.readFileSync('Week-4/public/index.html');
     callback(404, 'text/html', fileData.toString());
 };
 
