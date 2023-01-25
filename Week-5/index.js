@@ -2,7 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const routes = require('./routes/routes');
+const teamRoutes = require('./routes/teams');
+const indexRoutes = require('./routes/index');
 
 // Variables
 const port = process.env.PORT || 3000;
@@ -24,7 +25,8 @@ database.once('connected', () => {
 const app = express();
 
 app.use(express.json());
-app.use('/', routes);
+app.use('/', indexRoutes);
+app.use('/teams', teamRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on PORT ${port}`);

@@ -7,7 +7,7 @@ module.exports = router;
 
 // CRUD routes
 // C - Create
-router.post('/teams', async (req, res) => {
+router.post('/', async (req, res) => {
     const data = new Team({
         name: req.body.name,
         stadium: req.body.stadium,
@@ -22,7 +22,7 @@ router.post('/teams', async (req, res) => {
 });
 
 // R - Read
-router.get('/teams', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const data = await Team.find();
         res.status(200).json(data);
@@ -32,7 +32,7 @@ router.get('/teams', async (req, res) => {
 });
 
 // U - Update
-router.patch('/teams/:id', async (req, res) => {
+router.patch('/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const updatedData = req.body;
@@ -45,7 +45,7 @@ router.patch('/teams/:id', async (req, res) => {
 });
 
 // D - Delete
-router.delete('/teams/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
         const id = req.params.id;
 
